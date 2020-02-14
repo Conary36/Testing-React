@@ -14,26 +14,32 @@ jest.mock('axios', () => {
     }
 });
 
-test('made an api call', async () => {
+test('made an api call', async () => {//Arrange
     const wrapper = rtl.render(<App/>);
 
-    await wrapper.findAllByAltText(/logo/i);
+    await wrapper.findAllByAltText(/logo/i);//Action
 
-    expect(axios.get).toHaveBeenCalled();
+    expect(axios.get).toHaveBeenCalled();//Assertion
 })
 
-test('Next button clicked', async() => {
+test('Next button clicked', async() => {//Arrange
     const wrapper = rtl.render(<App/>);
 
     await wrapper.findAllByTestId(/map/i);
 
     const nextClick = wrapper.getByText(/next/i);
-    rtl.act(()=> rtl.fireEvent.click(nextClick));
+    rtl.act(()=> rtl.fireEvent.click(nextClick));//Action
+
+    expect(wrapper.findByTestId('map')).not.toBeNull();//Assertion
+})
+
+test('Previous button clicked', async() => {
+    const wrapper = rtl.render(<App/>);
+    
+    await wrapper.findAllByTestId(/map/i);
+
+    const prevClick = wrapper.getByText(/previous/i);
+    rtl.act(()=> rtl.fireEvent.click(prevClick));
 
     expect(wrapper.findByTestId('map')).not.toBeNull();
 })
-// test('Render of character name', async()=>{
-//     const wrapper = rtl.render(<App/>);
-
-//     const 
-// })
